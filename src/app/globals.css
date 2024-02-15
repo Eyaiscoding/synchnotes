@@ -53,9 +53,18 @@ body {
     --ring: 263.4 70% 50.4%;
   }
 }
+.animate-slide{
+  animation: 15s slide linear infinite;
+}
+@keyframes slide{
+  from{
+   transform: translateX(0);
+  }
+  to{
+    transform: translateX(-100%);
+  }
+}
 
-
- 
 @layer base {
   * {
     @apply border-border;
