@@ -37,7 +37,9 @@ const HomePage = () => {
           text-2xl
           bg-background
           "
-          ></Button>
+          >
+            Get Synchnotes Free
+          </Button>
         </div>
         <div className='md:mt-[-90px]
         sm:w-full
@@ -277,7 +279,7 @@ const HomePage = () => {
             {PRICING_CARDS.map((card) => (
                  <CustomCard 
                    key={card.planType}
-                   className={clsx('w-[300px] rounded-2xl dark:bg-black/95 backgroung-blur-3xl relative',
+                   className={clsx('w-[300px] rounded-2xl dark:bg-black/40 backgroung-blur-3xl relative',
                       {'border-brand-primaryPurple/70'
                       :card.planType === PRICING_PLANS.proplan,
                        }
@@ -308,7 +310,7 @@ const HomePage = () => {
                           text-2xl
                       "
                         >
-                          ${card.price}
+                          {card.price} DT
                         </span>
                         {+card.price > 0 ? (
                           <span className="dark:text-washed-purple-800 ml-1">
@@ -318,7 +320,7 @@ const HomePage = () => {
                           ''
                         )}
                         <p className="dark:text-washed-purple-800">
-                          {card.description}DT
+                          {card.description}
                         </p>
                         <Button
                           variant="btn-primary"
