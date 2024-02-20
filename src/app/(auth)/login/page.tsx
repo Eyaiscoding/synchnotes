@@ -12,7 +12,7 @@ import Image from 'next/image';
 import Logo from '../../../../public/cypresslogo.svg'
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import Loader from '@/components/Loader';
+import Loader from '@/components/global/Loader';
 import { actionLoginUser } from '@/lib/server-actions/auth-actions';
 function LoginPage() {
     const router = useRouter()
@@ -59,7 +59,7 @@ function LoginPage() {
             disabled={isLoading}
             control={form.control}
             name="email"
-            render={(field) => (
+            render={({ field }) => (
               <FormItem>
               <FormControl>
                 <Input type="email" 
@@ -74,7 +74,7 @@ function LoginPage() {
             disabled={isLoading}
             control={form.control}
             name="password"
-            render={(field) => (
+            render={({ field }) => (
               <FormItem>
               <FormControl>
                 <Input type="password" 

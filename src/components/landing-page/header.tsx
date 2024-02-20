@@ -16,6 +16,7 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { Button } from "../ui/button";
 
 const routes = [
   { title: "Features", href: "#features" },
@@ -183,8 +184,44 @@ const Header = () => {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              className={cn(navigationMenuTriggerStyle(), {
+                'dark:text-white': path === '#testimonials',
+                'dark:text-white/40': path !== '#testimonials',
+                'font-normal': true,
+                'text-xl': true,
+              })}
+            >
+              Testimonial
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+      <aside
+        className="flex
+        w-full
+        gap-2
+        justify-end
+      "
+      >
+        <Link href={'/login'}>
+          <Button
+            variant="btn-secondary"
+            className=" p-1 hidden sm:block"
+          >
+            Login
+          </Button>
+        </Link>
+        <Link href="/signup">
+          <Button
+            variant="btn-primary"
+            className="whitespace-nowrap"
+          >
+            Sign Up
+          </Button>
+        </Link>
+      </aside>
     </header>
   );
 };
