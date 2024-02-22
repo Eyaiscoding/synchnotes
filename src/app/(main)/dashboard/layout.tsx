@@ -9,7 +9,14 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = async ({ children, params }) => {
   const { data: products, error } = await getActiveProductsWithPrice();
-  //if (error) throw new Error();
+  if (error) {
+    let errorMessage = "Error fetching products.";
+    // Check if error object has a message property
+    if (error && typeof error === 'object' && 'message' in error) {
+      errorMessage += " " + error.message;
+    }
+    throw new Error(errorMessage);
+  }
   return (
     <main className="flex over-hidden h-screen">
       <SubscriptionModalProvider products={products}>
