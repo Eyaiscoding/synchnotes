@@ -55,7 +55,9 @@ const WorkspaceCreator = () => {
                   Permission
               </Label>
               <select
-                onValueChange={(val) => {setPermissions(eval);}}
+                 onValueChange={(val) => {
+                  setPermissions(val);
+                }}
                 defaultValue={permissions}>
                   <SelectTrigger className='w-full h-26 -mt-3'> 
                      <SelectValue/>
