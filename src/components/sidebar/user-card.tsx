@@ -70,9 +70,7 @@ const UserCard: React.FC<UserCardProps> = async ({ subscription }) => {
         </div>
       </aside>
       <div className="flex items-center justify-center">
-        <LogoutButton>
-          <LogOut />
-        </LogoutButton>
+        
         <ModeToggle />
       </div>
     </article>

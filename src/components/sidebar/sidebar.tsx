@@ -13,10 +13,10 @@ import { redirect } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import WorkspaceDropdown from './workspace-dropdown';
 import PlanUsage from './plan-usage';
+import UserCard from './user-card';
 import NativeNavigation from './native-navigation';
 import { ScrollArea } from '../ui/scroll-area';
 import FoldersDropdownList from './folders-dropdown-list';
-import UserCard from './user-card';
 
 interface SidebarProps {
   params: { workspaceId: string };
@@ -26,6 +26,8 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
   const supabase = createServerComponentClient({ cookies });
   //user
+  // Fetch the user data from Supabase
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -33,16 +35,17 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
   if (!user) return;
 
   //subscr
+  // Fetch the user's subscription status
   const { data: subscriptionData, error: subscriptionError } =
     await getUserSubscriptionStatus(user.id);
 
-  //folders
+  // Fetch the folders for the current workspace
   const { data: workspaceFolderData, error: foldersError } = await getFolders(
     params.workspaceId
   );
-  //error
+  // If there is an error fetching the subscription or folders, redirect to the dashboard
   if (subscriptionError || foldersError) redirect('/dashboard');
-
+ // Fetch the user's private, collaborating, and shared workspaces
   const [privateWorkspaces, collaboratingWorkspaces, sharedWorkspaces] =
     await Promise.all([
       getPrivateWorkspaces(user.id),
@@ -73,14 +76,11 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
           foldersLength={workspaceFolderData?.length || 0}
           subscription={subscriptionData}
         />
-        <NativeNavigation myWorkspaceId={params.workspaceId} />
-        <ScrollArea
-          className="overflow-scroll relative
-          h-[450px]
-        "
-        >
-          <div
-            className="pointer-events-none 
+        <NativeNavigation myWorkspaceId = {params.workspaceId}></NativeNavigation>
+        <ScrollArea className='overflow-scroll relative 
+        h-[450px] 
+        '>
+          <div className=' pointer-events-none 
           w-full 
           absolute 
           bottom-0 
@@ -88,12 +88,10 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
           bg-gradient-to-t 
           from-background 
           to-transparent 
-          z-40"
-          />
-          <FoldersDropdownList
-            workspaceFolders={workspaceFolderData || []}
-            workspaceId={params.workspaceId}
-          />
+          z-40
+          '/>
+          <FoldersDropdownList workspaceFolders={workspaceFolderData}
+           workspaceId={params.workspaceId}/>
         </ScrollArea>
       </div>
       <UserCard subscription={subscriptionData} />
@@ -102,3 +100,6 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
 };
 
 export default Sidebar;
+
+
+

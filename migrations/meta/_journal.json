@@ -29,6 +29,20 @@
       "when": 1708447108406,
       "tag": "0003_yielding_roulette",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1708878290598,
+      "tag": "0004_striped_squadron_sinister",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1708885623387,
+      "tag": "0005_dazzling_madame_hydra",
+      "breakpoints": true
     }
   ]
 }

@@ -15,6 +15,13 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+import { v4 } from 'uuid';
+import { addCollaborators, createWorkspace } from '@/lib/supabase/queries';
+import { Button } from '../ui/button';
+import CollaboratorSearch from './collaborator-search';
+import { ScrollArea } from '../ui/scroll-area';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { create } from 'domain';
 
 
 const WorkspaceCreator = () => {
@@ -32,6 +39,36 @@ const WorkspaceCreator = () => {
   
     const removeCollaborator = (user: User) => {
       setCollaborators(collaborators.filter((c) => c.id !== user.id));
+    };
+    const createItem = async () => {
+        const uuid = v4();
+        setIsLoading(true);
+        if (user?.id){
+          const newWorkspace: workspace ={
+              data: null,
+              createdAt: new Date().toISOString(),
+              iconId: '💼',
+              id: uuid,
+              inTrash: '',
+              title,
+              workspaceOwner: user.id,
+              logo: null,
+              bannerUrl: '',
+          };
+          if (permissions === "private" ){
+                await createWorkspace(newWorkspace);
+                toast({title:'Success', description: 'Created the workspace'});
+                router.refresh();
+
+          }
+          if (permissions === "shared" ){
+            await createWorkspace(newWorkspace);
+            addCollaborators(collaborators, uuid);
+            toast({title:'Success', description: 'Created the workspace'});
+            router.refresh();
+      }
+        }
+        setIsLoading(false);
     };
 
 
@@ -55,8 +92,8 @@ const WorkspaceCreator = () => {
                   Permission
               </Label>
               <select
-                 onValueChange={(val) => {
-                  setPermissions(val);
+                 onValueChange={(val: React.SetStateAction<string>) => {
+                  return setPermissions(val);
                 }}
                 defaultValue={permissions}>
                   <SelectTrigger className='w-full h-26 -mt-3'> 
@@ -100,6 +137,79 @@ const WorkspaceCreator = () => {
                   </SelectContent>
               </select>
             </>
-         </div>)
+            {permissions === 'shared' && (
+              <div> 
+                  <CollaboratorSearch 
+                            existingCollaborators={collaborators}
+                            getCollaborator={(user)=>{
+                               addCollaborator(user);
+                                      }}
+                  >
+                    <Button type='button' className='text-sm mt-4'>
+
+                       <Plus/>
+                       Add Collaborators 
+                    </Button>
+                  </CollaboratorSearch>
+                  <div className='mt-4'>
+                     <span className="text-sm text-muted-foreground">
+                       Collaborators {collaborators.length || ''}
+                     </span>
+                     <ScrollArea
+                          className="
+                            h-[120px]
+                            overflow-y-scroll
+                            w-full
+                            rounded-md
+                            border
+                            border-muted-foreground/20"
+                      >
+                        {collaborators.length ? ( collaborators.map((c)=> (
+                        <div className='p-4 flex justify-between items-center' key={c.id}>
+                            <div className='flex gap-4 items-center'>
+                                 <Avatar>
+                                     <AvatarImage src="/avatars/7.png" />
+                                     <AvatarFallback>PJ</AvatarFallback>
+                                 </Avatar>
+                                 <div className='tex-sm gap-2 
+                                 text-muted-foreground
+                                 overflow-hidden 
+                                 overflow-ellipsis
+                                 sm:w-[330px]
+                                 w-[140px]'>
+                                    {c.email}
+                                 </div>
+                            </div>
+                            <Button variant="secondary"
+                              onClick={() => removeCollaborator(c)}> Remove</Button>
+                        </div>
+                        ))
+                        ) : ( 
+                        <div className=' absolute
+                        right-0 left-0
+                        top-0
+                        bottom-0
+                        flex
+                        justify-center
+                        items-center
+                        '>
+                          <span className="text-muted-foreground text-sm">
+                              You have no collaborators
+                          </span>
+                        </div>
+                        
+                      )}
+                     </ScrollArea>
+     
+                  </div>
+                </div>
+              )}
+            <Button type="button" disabled={!title || (permissions === "shared" && collaborators.length === 0 || isLoading )}
+            variant={'secondary'}
+            onClick={createItem}
+            >
+              Create</Button>
+         </div>
+         );
 };
 export default WorkspaceCreator;

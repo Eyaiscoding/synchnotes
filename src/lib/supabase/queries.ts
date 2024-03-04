@@ -215,12 +215,21 @@ export const getFiles = async (folderId: string) => {
 export const addCollaborators = async (users: User[], workspaceId: string) => {
   const response = users.forEach(async (user: User) => {
     const userExists = await db.query.collaborators.findFirst({
-      where: (u, { eq }) =>
+      where: (u, {eq}) =>
         and(eq(u.userId, user.id), eq(u.workspaceId, workspaceId)),
     }); 
     if (!userExists)
       await db.insert(collaborators).values({ workspaceId, userId: user.id });
   });
+};
+export const createFolder = async (folder: Folder) => {
+      try {
+        const results = await db.insert(folders).values(folder);
+        return  {data: null , error: null};
+      } catch (error) {
+        console.log(error);
+        return {data: null , error: ' Error' };
+      }
 };
 
 export const removeCollaborators = async (
@@ -267,16 +276,6 @@ export const getActiveProductsWithPrice = async () => {
   } catch (error) {
     console.log(error);
     return { data: [], error };
-  }
-};
-
-export const createFolder = async (folder: Folder) => {
-  try {
-    const results = await db.insert(folders).values(folder);
-    return { data: null, error: null };
-  } catch (error) {
-    console.log(error);
-    return { data: null, error: 'Error' };
   }
 };
 
