@@ -19,7 +19,8 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/Eyaiscoding/synchnotes.git'
+                git branch: 'master', url: 'https://github.com/Eyaiscoding/synchnotes.git'
+                userRemoteConfigs: [[refspec: '+refs/heads/master:refs/remotes/origin/master']]
             }
         }
         stage("Sonarqube Analysis") {
