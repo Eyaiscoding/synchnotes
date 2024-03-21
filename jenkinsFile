@@ -25,7 +25,7 @@ pipeline {
         stage("Sonarqube Analysis") {
             steps {
                 withSonarQubeEnv('SonarQube-Server') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=synchnotes-1 \
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -X -Dsonar.projectName=synchnotes-1 \
                     -Dsonar.projectKey=synchnotes-1'''
                 }
             }
