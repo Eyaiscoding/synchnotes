@@ -17,7 +17,7 @@ pipeline {
                 cleanWs()
             }
         }
-        stage('Checkout from Git') {
+        stage('Checkout From Git') {
             steps {
                 git branch: 'master', url: 'https://github.com/Eyaiscoding/synchnotes.git'
             }
