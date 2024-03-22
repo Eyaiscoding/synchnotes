@@ -90,6 +90,7 @@ pipeline {
                 GIT_USER_NAME = "Eyaiscoding"
             }
             steps {
+                dir('/home/ubuntu/synchnotes/') {
                     withCredentials([string(credentialsId: 'Github-synchnotes-token', variable: 'GITHUB_TOKEN')]) {
                         sh '''
                             git config user.email eyaabidi1234@gmail.com
@@ -112,4 +113,6 @@ pipeline {
                 }
             }
         }
+
+}
 }
