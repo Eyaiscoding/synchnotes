@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: synchnotes
+  name: synchnotes-1
   labels:
-    app: synchnotes
+    app: synchnotes-1
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: synchnotes
+      app: synchnotes-1
   template:
     metadata:
       labels:
-        app: synchnotes
+        app: synchnotes-1
     spec:
       containers:
-      - name: synchnotes
+      - name: synchnotes-1
         image: 161272974421.dkr.ecr.us-east-1.amazonaws.com/synchnotes:latest
         ports:
         - containerPort: 3000

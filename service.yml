@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: synchnotes
+  name: synchnotes-1
 spec:
   ports:
     - protocol: TCP
     - port: 80
       targetPort: 3000
   selector:
-    app: synchnotes
+    app: synchnotes-1
   type: LoadBalancer
