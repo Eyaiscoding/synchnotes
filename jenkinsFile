@@ -94,14 +94,19 @@ pipeline {
                     withCredentials([string(credentialsId: 'Github-synchnotes-token', variable: 'GITHUB_TOKEN')]) {
                         sh '''
                             git config user.email "eyaabidi1234@gmail.com"
+                            echo "email config completed"
                             git config user.name "Eya Abidi"
+                            echo "user name config completed"
                             BUILD_NUMBER=${BUILD_NUMBER}
                             echo $BUILD_NUMBER
                             imageTag=$(grep -oP '(?<=synchnotes:)[^ ]+' Deployment.yml)
                             echo $imageTag
                             sed -i --debug "s/${AWS_ECR_REPO_NAME}:${imageTag}/${AWS_ECR_REPO_NAME}:$BUILD_NUMBER/" Deployment.yml
+                            echo "completed sed cmd"
                             git add Deployment.yml
+                            echo "completed git add"
                             git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
+                            echo "completed git commit"
                             git push @github.com/${GIT_USER_NAME}/${GIT_REPO_NAME">https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
                         '''
                     }
