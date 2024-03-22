@@ -99,7 +99,7 @@ pipeline {
                             echo $BUILD_NUMBER
                             imageTag=$(grep -oP '(?<=synchnotes:)[^ ]+' Deployment.yml)
                             echo $imageTag
-                            sed -i "s/${AWS_ECR_REPO_NAME}:${imageTag}/${AWS_ECR_REPO_NAME}:$BUILD_NUMBER/" Deployment.yml
+                            sed -i --debug "s/${AWS_ECR_REPO_NAME}:${imageTag}/${AWS_ECR_REPO_NAME}:$BUILD_NUMBER/" Deployment.yml
                             git add Deployment.yml
                             git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
                             git push @github.com/${GIT_USER_NAME}/${GIT_REPO_NAME">https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
