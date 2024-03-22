@@ -84,7 +84,7 @@ pipeline {
                 }       
             }
         }
-        stage('Update Deployment file') {
+        stage('Update Deployment File') {
             environment {
                 GIT_REPO_NAME = "synchnotes"
                 GIT_USER_NAME = "Eyaiscoding"
