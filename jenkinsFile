@@ -79,8 +79,8 @@ pipeline {
             steps {
                 script {
                     sh '''aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com'''
-                    sh '''docker tag synchnotes:latest 161272974421.dkr.ecr.us-east-1.amazonaws.com/synchnotes:latest'''
-                    sh '''docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/synchnotes:latest'''
+                    sh '''docker tag synchnotes:latest 161272974421.dkr.ecr.us-east-1.amazonaws.com/synchnotes:${BUILD_NUMBER}'''
+                    sh '''docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/synchnotes:${BUILD_NUMBER}'''
                 }       
             }
         }
