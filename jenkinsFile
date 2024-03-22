@@ -90,13 +90,12 @@ pipeline {
                 GIT_USER_NAME = "Eyaiscoding"
             }
             steps {
-                dir('/') {
                     withCredentials([string(credentialsId: 'Github-synchnotes-token', variable: 'GITHUB_TOKEN')]) {
                         sh '''
-                            git config user.email "eyaabidi1234@gmail.com"
+                            git config user.email eyaabidi1234@gmail.com
                             echo "email config completed"
                             git config user.name "Eya Abidi"
-                            echo "user name config completed"
+                            git config --list
                             BUILD_NUMBER=${BUILD_NUMBER}
                             echo $BUILD_NUMBER
                             imageTag=$(grep -oP '(?<=synchnotes:)[^ ]+' Deployment.yml)
@@ -113,6 +112,4 @@ pipeline {
                 }
             }
         }
-
-}
 }
