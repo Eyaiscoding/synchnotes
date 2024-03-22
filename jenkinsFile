@@ -86,15 +86,15 @@ pipeline {
         }
         stage('Update Deployment file') {
             environment {
-                GIT_REPO_NAME = "Advanced-E2E-DevSecOps-Three-tier-Project "
-                GIT_USER_NAME = "MohamedZezo7"
+                GIT_REPO_NAME = "synchnotes"
+                GIT_USER_NAME = "Eyaiscoding"
             }
             steps {
-                dir('Kubernetes-Manifests-file/Backend') {
+                dir('/') {
                     withCredentials([string(credentialsId: 'Github-synchnotes-token', variable: 'GITHUB_TOKEN')]) {
                         sh '''
                             git config user.email "eya.abidi@edu.isetcom.tn"
-                            git config user.name "Eyaiscoding"
+                            git config user.name "Eya Abidi"
                             BUILD_NUMBER=${BUILD_NUMBER}
                             echo $BUILD_NUMBER
                             imageTag=$(grep -oP '(?<=synchnotes:)[^ ]+' Deployment.yml)
