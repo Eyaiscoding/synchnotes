@@ -84,6 +84,30 @@ pipeline {
                 }       
             }
         }
+        stage('Update Deployment file') {
+            environment {
+                GIT_REPO_NAME = "Advanced-E2E-DevSecOps-Three-tier-Project "
+                GIT_USER_NAME = "MohamedZezo7"
+            }
+            steps {
+                dir('Kubernetes-Manifests-file/Backend') {
+                    withCredentials([string(credentialsId: 'Github-synchnotes-token', variable: 'GITHUB_TOKEN')]) {
+                        sh '''
+                            git config user.email "eya.abidi@edu.isetcom.tn"
+                            git config user.name "Eyaiscoding"
+                            BUILD_NUMBER=${BUILD_NUMBER}
+                            echo $BUILD_NUMBER
+                            imageTag=$(grep -oP '(?<=synchnotes:)[^ ]+' Deployment.yml)
+                            echo $imageTag
+                            sed -i "s/${AWS_ECR_REPO_NAME}:${imageTag}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}/" Deployment.yml
+                            git add Deployment.yml
+                            git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
+                            git push @github.com/${GIT_USER_NAME}/${GIT_REPO_NAME">https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
+                        '''
+                    }
+                }
+            }
+        }
 
 }
 }
