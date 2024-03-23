@@ -106,8 +106,9 @@ pipeline {
                             git add Deployment.yml
                             echo "completed git add"
                             git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
+                            ls 
+                            cd /home/ubuntu/synchnotes@tmp/
                             ls
-                            sudo cat /home/ubuntu/synchnotes@tmp/durable-750898ce/script.sh.copy
                             echo "completed git commit"
                             git push @github.com/${GIT_USER_NAME}/${GIT_REPO_NAME">https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
                         '''
