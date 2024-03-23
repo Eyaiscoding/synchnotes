@@ -17,16 +17,6 @@ pipeline {
                 cleanWs()    
             }
         }
-         stage("Push Sonar to DockrHub"){
-            steps{
-                withCredentials([usernamePassword(credentialsId:"dockerhub_id",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                    sh "docker commit d9c eyaiscoding/pfe-containers:latest"
-                    sh "docker images"
-                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                    sh "docker push eyaiscoding/pfe-containers:latest"
-                }
-            }
-        }
         stage('Checkout From Git') {
             steps {
                 git branch: 'master', url: 'https://github.com/Eyaiscoding/synchnotes.git'
@@ -35,8 +25,6 @@ pipeline {
         stage("Sonarqube Analysis") {
             steps {
                 withSonarQubeEnv('SonarQube-Server') {
-
-                    sh "docker push new-repo:tagname"
                     sh '''$SCANNER_HOME/bin/sonar-scanner -X -Dsonar.projectName=synchnotes-1 \
                     -Dsonar.projectKey=synchnotes-1'''
                 }
