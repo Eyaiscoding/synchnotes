@@ -25,6 +25,7 @@ pipeline {
         stage("Sonarqube Analysis") {
             steps {
                 withSonarQubeEnv('SonarQube-Server') {
+                    sh "docker start sonar"
                     sh '''$SCANNER_HOME/bin/sonar-scanner -X -Dsonar.projectName=synchnotes-1 \
                     -Dsonar.projectKey=synchnotes-1'''
                 }
