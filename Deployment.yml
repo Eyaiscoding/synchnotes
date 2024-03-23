@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: synchnotes-1
-        image: 161272974421.dkr.ecr.us-east-1.amazonaws.com/synchnotes:75
+        image: 161272974421.dkr.ecr.us-east-1.amazonaws.com/synchnotes:76
         ports:
         - containerPort: 3000
