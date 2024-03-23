@@ -107,6 +107,7 @@ pipeline {
                             echo "completed git add"
                             git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
                             echo "completed git commit"
+                            git pull
                             git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
                         '''
                     }
