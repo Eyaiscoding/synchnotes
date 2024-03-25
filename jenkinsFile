@@ -20,10 +20,6 @@ pipeline {
         stage('Checkout From Git') {
             steps {
                 git branch: 'master', url: 'https://github.com/Eyaiscoding/synchnotes.git'
-                sh ''' 
-                apt update -y
-                sudo apt install terraform -y
-                '''
             }
         }
         stage("Sonarqube Analysis") {
