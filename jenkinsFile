@@ -21,10 +21,10 @@ pipeline {
             steps {
                 git branch: 'master', url: 'https://github.com/Eyaiscoding/synchnotes.git'
                 sh '''
-                  apt install -y gnupg software-properties-common curl -y
+                  apt-get install -y gnupg software-properties-common curl -y
                   wget -qO- https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
                   apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-                  apt install terraform -y
+                  apt-get install terraform -y
                 
                 '''
             }
