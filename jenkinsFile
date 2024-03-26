@@ -22,7 +22,7 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/Eyaiscoding/synchnotes.git'
                 sh '''
                   apt-get install -y gnupg software-properties-common curl -y
-                  wget -qO- https://apt.releases.hashicorp.com/gpg | apt-key add -
+                  wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --batch --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
                   apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
                   apt-get install terraform -y
                 
