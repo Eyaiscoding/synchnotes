@@ -21,7 +21,7 @@ pipeline {
             steps {
                 git branch: 'master', url: 'https://github.com/Eyaiscoding/synchnotes.git'
                 sh '''
-                  su -i -u
+                  su -
                   sudo apt-get update -y && sudo apt-get install terraform -y
                 '''
             }
