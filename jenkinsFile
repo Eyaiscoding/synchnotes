@@ -21,8 +21,11 @@ pipeline {
             steps {
                 git branch: 'master', url: 'https://github.com/Eyaiscoding/synchnotes.git'
                 sh '''
-                  sudo -i
-                  sudo apt-get update -y && sudo apt-get install terraform -y
+                  apt-get update && apt-get install -y gnupg software-properties-common -y
+                  wget -qO- https://apt.releases.hashicorp.com/gpg | gpq --dearmor | tee /etc/share/keyrings/hashicorp-archive-keyring.gpg
+                  gpg --no-default-keyring fault-keyring --keyring /etc/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint /etc/share/keyrings/hashicorp-archive-keyring.gpg
+
+ 
                 '''
             }
         }
