@@ -23,7 +23,9 @@ pipeline {
                 sh '''
                 wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --import -
                 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
-                cat /etc/passwd | grep "^root:"
+                sudo chown root:root /etc/sudo.conf
+                sudo chown root:root /usr/bin/sudo
+                sudo chmod 4755 /usr/bin/sudo
                 sudo apt-get update -y && sudo apt-get install terraform -y
                 '''
             }
