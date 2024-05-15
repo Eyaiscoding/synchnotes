@@ -64,7 +64,7 @@ const LoginPage = () => {
         >
           <Image
             src={Logo}
-            alt="cypress Logo"
+            alt="synchnotes Logo"
             width={50}
             height={50}
           />
