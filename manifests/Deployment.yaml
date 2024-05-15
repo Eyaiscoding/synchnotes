@@ -1,0 +1,112 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: database-url
+  annotations:
+    avp.kubernetes.io/path: "DATABASE_URL"
+type: Opaque
+stringData:
+  DATABASE_URL: <DATABASE_URL>
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: next-public-supabase-url
+  annotations:
+    avp.kubernetes.io/path: "NEXT_PUBLIC_SUPABASE_URL"
+type: Opaque
+stringData:
+  NEXT_PUBLIC_SUPABASE_URL: <NEXT_PUBLIC_SUPABASE_URL>
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: next-publicsupabase-anon-key
+  annotations:
+    avp.kubernetes.io/path: "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+type: Opaque
+stringData:
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: <NEXT_PUBLIC_SUPABASE_ANON_KEY>
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: service-role-key
+  annotations:
+    avp.kubernetes.io/path: "SERVICE_ROLE_KEY"
+type: Opaque
+stringData:
+  SERVICE_ROLE_KEY: <SERVICE_ROLE_KEY>
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: pw
+  annotations:
+    avp.kubernetes.io/path: "PW"
+type: Opaque
+stringData:
+  PW: <PW>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synchnotes-1
+  labels:
+    app: synchnotes-1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: synchnotes-1
+  template:
+    metadata:
+      labels:
+        app: synchnotes-1
+    spec:
+      containers:
+      - name: synchnotes-1
+        image: 161272974421.dkr.ecr.us-east-1.amazonaws.com/synchnotes:80
+        ports:
+        - containerPort: 3000
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: database-url
+                key: DATABASE_URL
+          - name: NEXT_PUBLIC_SUPABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: next-public-supabase-url
+                key: NEXT_PUBLIC_SUPABASE_URL
+          - name: NEXT_PUBLIC_SUPABASE_ANON_KEY
+            valueFrom:
+              secretKeyRef:
+                name: next-publicsupabase-anon-key
+                key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+          - name: SERVICE_ROLE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: service-role-key
+                key: SERVICE_ROLE_KEY
+          - name: PW
+            valueFrom:
+              secretKeyRef:
+                name: pw
+                key: PW
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: synchnotes-1
+spec:
+  ports:
+    - name: app-port
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: synchnotes-1
+  type: LoadBalancer
+
