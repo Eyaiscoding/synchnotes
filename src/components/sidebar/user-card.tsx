@@ -31,7 +31,7 @@ const UserCard: React.FC<UserCardProps> = async ({ subscription }) => {
       .from('avatars')
       .getPublicUrl(response.avatarUrl)?.data.publicUrl;
   }
-  const profile = {
+   const profile = {
     ...response,
     avatarUrl: avatarPath,
   };

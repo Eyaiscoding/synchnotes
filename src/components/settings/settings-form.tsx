@@ -57,6 +57,7 @@ import LogoutButton from '../global/logout-button';
 import Link from 'next/link';
 import { useSubscriptionModal } from '@/lib/providers/subscription-modal-provider';
 import { postData } from '@/lib/utils';
+import { availableParallelism } from 'os';
 
 const SettingsForm = () => {
   const { toast } = useToast();
@@ -166,8 +167,45 @@ const SettingsForm = () => {
     } else setPermissions(val);
   };
 
-  //CHALLENGE fetching avatar details
-  //WIP Payment Portal redirect
+  //CHALLENGE fetching avatar details --Start
+
+  const onChangeProfilePicture = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!user) return;
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingProfilePic(true);
+    try {
+      const uuid = v4();
+      const { data, error } = await supabase.storage
+        .from('avatars')
+        .upload(`avatar-${uuid}`, file, {
+          cacheControl: '3600',
+          upsert: true,
+        });
+      if (!error) {
+        const avatarUrl = data.path;
+        // Update the avatar_url field in the user table
+        const { error: updateError } = await supabase
+          .from('users')
+          .update({ avatar_url: avatarUrl })
+          .eq('id', user.id);
+        if (!updateError) {
+          toast({ title: 'Avatar uploaded successfully' });
+        }
+      }
+    } catch (error) {
+      console.error('Error uploading avatar:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Error uploading avatar',
+        description: 'An error occurred while uploading your avatar. Please try again.',
+      });
+    } finally {
+      setUploadingProfilePic(false);
+    }
+  };
+  
+  //CHALLENGE fetching avatar details --End
 
   useEffect(() => {
     const showingWorkspace = state.workspaces.find(
@@ -406,7 +444,7 @@ const SettingsForm = () => {
               type="file"
               accept="image/*"
               placeholder="Profile Picture"
-              //onChange={onChangeProfilePicture}
+              onChange={onChangeProfilePicture}
               disabled={uploadingProfilePic}
             />
             
