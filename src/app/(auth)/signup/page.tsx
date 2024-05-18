@@ -35,7 +35,6 @@ const SignUpFormSchema = z
     confirmPassword: z
       .string()
       .describe('Confirm Password')
-      .min(6, 'Password must be minimum 6 characters'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match.",
