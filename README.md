@@ -15,8 +15,8 @@ SynchNotes is a secure, cloud-native online collaboration tool developed during 
 
 ## 🧰 Tech Stack
 
-- **Frontend:** HTML/CSS/JS (or React/Vue if applicable)
-- **Backend:** Node.js / Express (or Django/Flask if applicable)
+- **Frontend:** HTML/CSS/JS 
+- **Backend:** Node.js / Express 
 - **Containerization:** Docker
 - **CI/CD:** Jenkins, ArgoCD
 - **Security:** SonarQube, Trivy, OWASP Dependency-Check
