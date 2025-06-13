@@ -1,54 +1,66 @@
-# SynchNotes 📝
+# 📝 SynchNotes – Real-time Collaboration App
 
-SynchNotes is a secure, cloud-native online collaboration tool developed during a DevSecOps internship project at RFC. It allows users to collaborate in real time on shared documents with built-in role management and secure access. This app was developed using a CI/CD pipeline integrated with robust security and monitoring tools on AWS.
+SynchNotes is a secure, cloud-native online collaboration tool developed as part of a DevSecOps internship project. It enables real-time document editing and workspace collaboration, built and deployed using modern cloud-native tools and DevSecOps practices.
+
+---
 
 ## 🚀 Features
 
-- Real-time document collaboration
-- Signup/Login with role-based access
-- Workspace and team management
-- CI pipeline with Jenkins, SonarQube, OWASP DC, Trivy
-- CD pipeline with ArgoCD (GitOps)
-- Runtime secrets injection with AWS Secrets Manager
-- Monitoring with Grafana, Prometheus, and Datadog
-- Resilient deployment on AWS EKS
+- Real-time collaborative document editing with live cursors
+- Workspace and user management (Free & Pro plans)
+- Secure authentication and secrets management
+- Role-based access control
+- Integrated CI/CD pipeline (Jenkins + ArgoCD)
+- Deployed on AWS EKS with GitOps and DevSecOps principles
+- Full monitoring stack (Grafana, Prometheus, Datadog)
+
+---
 
 ## 🧰 Tech Stack
 
-- **Frontend:** HTML/CSS/JS 
-- **Backend:** Node.js / Express 
-- **Containerization:** Docker
-- **CI/CD:** Jenkins, ArgoCD
-- **Security:** SonarQube, Trivy, OWASP Dependency-Check
-- **Secrets Management:** AWS Secrets Manager + ArgoCD Vault Plugin
-- **Infrastructure:** Amazon EKS
-- **Monitoring:** Prometheus, Grafana, Datadog
+| Layer            | Technologies Used |
+|------------------|-------------------|
+| **Frontend**     | Next.js 13, Tailwind CSS |
+| **Realtime**     | WebSockets, Supabase Realtime, Cursor Sync |
+| **Backend**      | Supabase (PostgreSQL + Auth), Drizzle ORM |
+| **Payments**     | Stripe |
+| **CI/CD**        | GitHub → Jenkins (CI) → ArgoCD (CD) |
+| **Security**     | SonarQube, Trivy, OWASP DC, AWS Secrets Manager |
+| **Monitoring**   | Prometheus, Grafana, Datadog |
+| **Infrastructure** | AWS EKS (via Terraform) |
 
-## 📦 CI/CD Pipeline Overview
+---
 
-1. Code pushed to GitHub
-2. Jenkins triggers pipeline
-3. Static & dependency scans (SonarQube, OWASP DC, Trivy)
-4. Docker image build + push to ECR
-5. ArgoCD syncs deployment on EKS
-6. Secrets injected into pods securely
+## 🔐 DevSecOps Integration
+
+- Static & dynamic security scans (SonarQube, OWASP, Trivy)
+- CI/CD pipeline with vulnerability checks and secure image builds
+- Secrets injected at runtime using AWS Secrets Manager
+- GitOps-powered deployments with ArgoCD
+
+---
+
+## 📦 CI/CD Pipeline Flow
+
+1. Code push triggers Jenkins pipeline via GitHub webhook
+2. Static code analysis and security scans run
+3. Docker image is built and pushed to Amazon ECR
+4. ArgoCD syncs latest manifest and deploys to AWS EKS
+5. Secrets are fetched and injected via ArgoCD Vault Plugin
+6. Metrics and logs collected via Prometheus & Datadog
+
+---
 
 ## 📸 Dashboards
 
-- Jenkins Build Status
-- ArgoCD Deployment Health
-- SynchNotes Usage Stats
-- Kubernetes Cluster Monitoring (Datadog, Grafana)
+- Jenkins CI status
+- ArgoCD sync health
+- SynchNotes usage and error metrics
+- EKS cluster node, service, and pod monitoring
 
-## 🔒 DevSecOps Focus
-
-Security is integrated throughout the development lifecycle using:
-- Code quality and vulnerability scans
-- Secure image scanning
-- Secrets management and injection
-- Shift-left security testing
+---
 
 ## 📄 License
 
-This project is for educational and demonstration purposes only.
+This project was developed for academic and demonstration purposes.
 
