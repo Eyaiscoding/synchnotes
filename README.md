@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SynchNotes 📝
 
-## Getting Started
+SynchNotes is a secure, cloud-native online collaboration tool developed during a DevSecOps internship project at RFC. It allows users to collaborate in real time on shared documents with built-in role management and secure access. This app was developed using a CI/CD pipeline integrated with robust security and monitoring tools on AWS.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Real-time document collaboration
+- Signup/Login with role-based access
+- Workspace and team management
+- CI pipeline with Jenkins, SonarQube, OWASP DC, Trivy
+- CD pipeline with ArgoCD (GitOps)
+- Runtime secrets injection with AWS Secrets Manager
+- Monitoring with Grafana, Prometheus, and Datadog
+- Resilient deployment on AWS EKS
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧰 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend:** HTML/CSS/JS (or React/Vue if applicable)
+- **Backend:** Node.js / Express (or Django/Flask if applicable)
+- **Containerization:** Docker
+- **CI/CD:** Jenkins, ArgoCD
+- **Security:** SonarQube, Trivy, OWASP Dependency-Check
+- **Secrets Management:** AWS Secrets Manager + ArgoCD Vault Plugin
+- **Infrastructure:** Amazon EKS
+- **Monitoring:** Prometheus, Grafana, Datadog
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 📦 CI/CD Pipeline Overview
 
-## Learn More
+1. Code pushed to GitHub
+2. Jenkins triggers pipeline
+3. Static & dependency scans (SonarQube, OWASP DC, Trivy)
+4. Docker image build + push to ECR
+5. ArgoCD syncs deployment on EKS
+6. Secrets injected into pods securely
 
-To learn more about Next.js, take a look at the following resources:
+## 📸 Dashboards
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Jenkins Build Status
+- ArgoCD Deployment Health
+- SynchNotes Usage Stats
+- Kubernetes Cluster Monitoring (Datadog, Grafana)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🔒 DevSecOps Focus
 
-## Deploy on Vercel
+Security is integrated throughout the development lifecycle using:
+- Code quality and vulnerability scans
+- Secure image scanning
+- Secrets management and injection
+- Shift-left security testing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is for educational and demonstration purposes only.
+
